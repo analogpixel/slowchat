@@ -1,0 +1,57 @@
+:root {
+  --blue: #0091FF;
+  --dark-gray: #eeeeee;
+  }
+
+
+.person {
+  padding: 10px;
+  color: var(--blue);
+  border-bottom: 5px solid var(--dark-gray);
+  background: white ;
+  text-align: center;
+}
+
+.person.selected {
+  position: relative;
+  background: var(--blue);
+  color: white;
+}
+
+.person-name {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.person.selected::after {
+  content:"";
+    position:absolute;
+    height:0;
+    width:0;
+    left:100%;
+    top:0;
+    border:46px solid transparent;
+    border-left: 20px solid var(--blue);
+}
+
+
+.message-bubble { 
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 1.5em;
+}
+
+.message-content {
+  background: var(--dark-gray);
+  height: 100vh;
+}
+
+.message-sender {
+  background-color: var(--blue);
+  border-radius: 10px;
+  font-size: 1.5em;
+  color: white;
+}
+

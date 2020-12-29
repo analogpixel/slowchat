@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slowchat</title>
+    <script src="js/jquery-3.5.1.min.js"></script> 
+    <script src="js/qrcode.min.js"></script>
+    <!-- <script src="js/qr-scanner.min.js"></script> !-->
+    <link href="style.css" rel="stylesheet">
+
+    <script src="js/qr-scanner.umd.min.js"></script> 
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row align-items-start">
+        <div class="col-2 border bg-light g-0">
+          <div class="person selected"><div class="person-name">Bob</div><div class="person-date">12/20/2020</div></div>
+          <div class="person "><div class="person-name">Jane</div><div class="person-date">12/20/2020</div></div>
+          <div class="person"><div class="person-name">Sue</div><div class="person-date">12/20/2020</div></div>
+        </div>
+        <div class="col-10 g-0">
+
+          <div class="container-fluid message-content px-5">
+
+            <div class="row ml-10 pt-3 gy-5" >
+              <div class="col-11"><div class="message-bubble" p-3>hello there</div></div>
+              <div class="col-1"><div class="message-sender text-center">ME</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
+
+<!--
+  <video id=vid></video>
+  <button onclick="startScan()">start</button>
+
+  <script>
+    function startScan() {
+   qrScanner.start();
+   }
+
+   const qrScanner = new QrScanner(document.getElementById('vid'), result => console.log('decoded qr code:', result));
+  </script>
+
+
+  <div id="qrcode"></div>
+  <script type="text/javascript">
+    new QRCode(document.getElementById("qrcode"), {
+   text: "this is my really long text to see how much data I can stick into a qr code and have it read back via another scanner. at some point the qr code will run out of space and I won't be able to include any other data",
+   width: 800,
+   height: 800,
+   correctLevel : QRCode.CorrectLevel.L
+   });
+  </script>
+  !-->
