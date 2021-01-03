@@ -16,11 +16,8 @@
       <div class="row align-items-start">
         <div class="col-2 border bg-light g-0">
           <div id="contact_list">
-            <div class="person selected"><div class="person-name">Bob</div><div class="person-date">12/20/2020</div></div>
-            <div class="person "><div class="person-name">Jane</div><div class="person-date">12/20/2020</div></div>
-            <div class="person"><div class="person-name">Sue</div><div class="person-date">12/20/2020</div></div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Launch demo modal </button>
           </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">Add new user</button>
         </div>
         <div class="col-10 g-0 message-content">
 
@@ -30,6 +27,7 @@
               <div class="col-11"><div class="message-bubble" p-3>hello there</div></div>
               <div class="col-1"><div class="message-sender text-center">ME</div>
               </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputImage">Scan Message</button>
 
             </div>
           </div>
@@ -39,16 +37,17 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Input Image-->
+    <div class="modal fade" id="inputImage" tabindex="-1" aria-labelledby="inputImageModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="inputImageModalLabel">Scan In Data</h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            ...
+            <video id=vid></video>
+            <button onclick="start_scan()">Scan in QR code</button>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -57,6 +56,27 @@
         </div>
       </div>
     </div>
+
+
+    <!-- Modal Add New User-->
+    <div class="modal fade" id="newUser" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newUserModalLabel">Add a new User</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            data here
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Scripts -->
     <script src="js/qrcode.min.js"></script>

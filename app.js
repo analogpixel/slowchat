@@ -4,7 +4,17 @@ var user_data;
 var user_contacts = [{'name':'matt', 'last':'12/12/2020'}, {'name':'jane', 'last':'12/12/2020'}];
 var current_selected;
 Lockr.prefix = 'lockr_';
+const qrScanner = new QrScanner(document.getElementById('vid'), result => process_message(result));
 
+function process_message(m) {
+  qrScanner.stop();
+  $("#inputImage").modal('toggle');
+  console.log("GOT MESSAGE:", m);
+}
+
+function start_scan() {
+  qrScanner.start();
+}
 
 function load_data() {
   user_data = Lockr.get('user_data')
