@@ -61,3 +61,17 @@
   color: white;
 }
 
+#printDiv {
+  display: none;
+}
+
+@media print {
+
+    #printDiv  {
+        display: block !important;
+   }
+
+    .container-fluid  { display:none; }
+}
+
+

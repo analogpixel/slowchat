@@ -27,14 +27,13 @@
               <div class="col-11"><div class="message-bubble" p-3>hello there</div></div>
               <div class="col-1"><div class="message-sender text-center">ME</div>
               </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputImage">Scan Message</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputImage">Scan Message</button>
 
             </div>
           </div>
         </div>
       </div>
     </div>
-
 
 
     <!-- Modal Input Image-->
@@ -67,16 +66,50 @@
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            data here
+            <div class=why>
+              When adding a user, you enter their address so the output can include a address
+              label when mailing this letter to them.  If you leave the address blank, you'll
+              just need to fill in all that yourself; all data is stored on your local machine
+              as a cookie and is never transmitted to a server (that's what they all say right?)
+              .<br><br>
+            </div>
+            <div class=user_input>
+              <label for="fist_name_input" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="first_name_input" placeholder="Bob">
+
+              <label for="last_name_input" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="last_name_input" placeholder="Smith">
+
+              <label for="user_address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="user_address" placeholder="915 Westin Lane">
+
+              <label for="user_city" class="form-label">City</label>
+              <input type="text" class="form-control" id="user_city" placeholder="Walatoba">
+
+              <label for="user_state" class="form-label">State</label>
+              <input type="text" class="form-control" id="user_state" placeholder="California">
+
+              <label for="user_zip" class="form-label">Zipcode</label>
+              <input type="text" class="form-control" id="user_zip" placeholder="99192">
+
+
+            </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button id="save_user_data" type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- print div -->
+    <div id="printDiv">
+      <div id="qrcode"></div>
+
+      Instructions for importing this message into chat!
+    </div>
 
     <!-- Scripts -->
     <script src="js/qrcode.min.js"></script>
@@ -88,27 +121,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-
-<!--
-  <video id=vid></video>
-  <button onclick="startScan()">start</button>
-
-  <script>
-    function startScan() {
-   qrScanner.start();
-   }
-
-   const qrScanner = new QrScanner(document.getElementById('vid'), result => console.log('decoded qr code:', result));
-  </script>
-
-
-  <div id="qrcode"></div>
-  <script type="text/javascript">
-    new QRCode(document.getElementById("qrcode"), {
-   text: "this is my really long text to see how much data I can stick into a qr code and have it read back via another scanner. at some point the qr code will run out of space and I won't be able to include any other data",
-   width: 800,
-   height: 800,
-   correctLevel : QRCode.CorrectLevel.L
-   });
-  </script>
-  !-->
