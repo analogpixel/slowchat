@@ -10,6 +10,28 @@
   max-height: 400px;
 }
 
+.message-ui {
+}
+
+.contact_container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#contact_list {
+}
+
+.empty_flex {
+  align-self: stretch;
+  height: 100%;
+}
+
+.contact_buttons {
+  align-self: flex-end;
+  padding: 20px;
+}
+
 .person {
   padding: 10px;
   color: var(--blue);

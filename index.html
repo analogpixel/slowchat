@@ -14,25 +14,43 @@
     <!-- Main Page -->
     <div class="container-fluid" >
       <div class="row align-items-start">
+
         <div class="col-2 border bg-light g-0">
-          <div id="contact_list">
-          </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">Add new user</button>
+
+          <div class="contact_container">
+            <div id="contact_list"> </div>
+            <div class="empty_flex"></div>
+            <div class="contact_buttons">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">Add new user</button>
+            </div>
+          </div> <!--contact_container -->
         </div>
+
         <div class="col-10 g-0 message-content">
 
           <div class="container-fluid px-5">
 
-            <div class="row ml-10 pt-3 gy-5" >
-              <div class="col-11"><div class="message-bubble" p-3>hello there</div></div>
-              <div class="col-1"><div class="message-sender text-center">ME</div>
-              </div>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputImage">Scan Message</button>
+            <div id=message_container></div> 
 
+            <div class="row ml-10 pt-3 gy-1" >
+              <div class="container-fluid">
+                <div class="row align-items-start">
+                  <div class="col-10">
+                    <input type="text" class="form-control message-ui" id="message_text" placeholder="type message here">
+                  </div>
+              <div class="col-2">
+                <button type="button" class="btn btn-primary message-ui" onclick="send_message()">Send</button>
+              </div>
+                </div>
+              </div>
             </div>
+
+            <button type="button" class="btn btn-primary message-ui" data-toggle="modal" data-target="#inputImage">Scan QR Message From Contact</button>
+
           </div>
         </div>
       </div>
+    </div>
     </div>
 
 
