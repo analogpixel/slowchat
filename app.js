@@ -3,16 +3,35 @@
 var user_data;
 var user_contacts = [];
 var current_selected;
+var scan_type = "none"; 
 Lockr.prefix = 'lockr_';
 const qrScanner = new QrScanner(document.getElementById('vid'), result => process_message(result));
 
 function process_message(m) {
-  qrScanner.stop();
-  $("#inputImage").modal('toggle');
+
   console.log("GOT MESSAGE:", m);
+  [mtype, message] = m.split('|');
+
+  if ( mtype == "m" && scan_type == "messaage") {
+    qrScanner.stop();
+    $("#inputImage").modal('toggle');
+    console.log("scanned in message");
+  }
+
+  if ( mtype == "c" && scan_type == "contact") {
+    qrScanner.stop();
+    $("#inputQrContactModal").modal('toggle');
+    console.log("scanned in contact");
+  }
 }
 
 function start_scan() {
+  scanType="message";
+  qrScanner.start();
+}
+
+function start_contact_scan() {
+  scan_type="contact";
   qrScanner.start();
 }
 
@@ -22,6 +41,7 @@ function load_data() {
 
   if (user_data == undefined ) {
     user_data = {};
+    $("#welcome").modal('toggle'); // no data? welcome the user
   }
 
   if (user_contacts == undefined) {
@@ -57,31 +77,31 @@ update the message page with the current_selected user
 */
 function update_message_pane(user) {
   console.log(user);
-  //user_data={}; 
-  //user_data['person_matt'] = {'messages': ["0|hello there", "1|how are you doing"]};
-  //user_data['person_jane'] = {'messages': ["0|hi jane", "1|ding dong"]};
 
+  html = `<table class="message-table">`;
   if (user in user_data) {
-    html = "";
     user_data[user]['messages'].forEach( (m) => {
       [u,mes]  = m.split("|");
       if (u == '0') { u = "You"; } else { u=user.split('_')[1]; }
       // html += `<div class="row ml-10 pt-3 gy-5" >
-      html += `<div class="row ml-10 pt-3 gy-1" >
-          <div class="col-11"><div class="message-bubble" p-3>${mes}</div></div>
-          <div class="col-1"><div class="message-sender text-center">${u}</div>
-          </div>`
+      html += `<tr class="message-table-row">
+          <td><div class="message-bubble" p-3>${mes}</div></td>
+          <td><div class="message-sender text-center">${u}</td>
+          </tr>`
     });
 
-    $("#message_container").html(html);
   }
+  html += `</table>`
+  $("#message_container").html(html);
+  $("#message_container").scrollTop($('#message_container')[0].scrollHeight);
 }
 
 /*
 add a user to the contact list
 */
 function add_user_ui(u) {
-  a = `<div id="${name_to_id(u.first_name)}" onClick="update_person(this)" class="person"><div class="person-name">${u.first_name}</div><div class="person-date">${u.last}</div></div>`
+  //a = `<div id="${name_to_id(u.first_name)}" onClick="update_person(this)" class="person"><div class="person-name">${u.first_name}</div><div class="person-date">${u.last}</div></div>`
+  a = `<div id="${name_to_id(u.first_name)}" onClick="update_person(this)" class="person"><div class="person-name">${u.first_name}</div></div>`
   $("#contact_list").append(a);
 }
 
@@ -98,19 +118,50 @@ function send_message() {
 
   save_data();
   update_message_pane(to);
-  print_message("me", to, `m|${message}`);
+  print_message("me", to, message);
 }
 
 function print_message(from,to, message) {
   new QRCode(document.getElementById("qrcode"), {
-    text: "m:this is the text",
-    width: 800,
-    height: 800,
+    text: "m|" + message,
+    width: 600,
+    height: 600,
+    correctLevel : QRCode.CorrectLevel.L
+  });
+
+  contact = `${user_data['settings']['first_name']}>${user_data['settings']['last_name']}>
+             ${user_data['settings']['user_address']}> 
+             ${user_data['settings']['user_city']}>${user_data['settings']['user_state']}>${user_data['settings']['user_zip']}`
+
+  $("#contact_info").html( contact);
+  new QRCode(document.getElementById("qrcode_contact"), {
+    text: "c|" + contact,
+    width: 300,
+    height: 300,
     correctLevel : QRCode.CorrectLevel.L
   });
 
   window.print();
 }
+
+// Save settings 
+document.getElementById("save_settings").addEventListener("click", function() {
+  settings = {'first_name': $("#settings_first_name_input").val(),
+    'last_name':  $("#settings_last_name_input").val(),
+    'user_address': $("#settings_user_address").val(),
+    'user_city': $("#settings_user_city").val(),
+    'user_state': $("#settings_user_state").val(),
+    'user_zip': $("#settings_user_zip").val()
+  };
+
+  if ( user_data == undefined) {
+    user_data = {}
+  }
+
+  user_data['settings'] = settings;
+  save_data(); // save the data to disk
+  $("#settings").modal('toggle');
+});
 
 // Save the user data to local storage
 document.getElementById("save_user_data").addEventListener("click", function() {

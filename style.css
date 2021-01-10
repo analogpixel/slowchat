@@ -3,6 +3,11 @@
   --dark-gray: #eeeeee;
   }
 
+body {
+    background-color: var(--dark-gray) !important;
+    overflow: hidden;
+}
+
 #vid {
   width: 400px;
   height: 400px;
@@ -10,8 +15,6 @@
   max-height: 400px;
 }
 
-.message-ui {
-}
 
 .contact_container {
   display: flex;
@@ -47,7 +50,7 @@
 }
 
 .person-name {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
@@ -58,7 +61,7 @@
     width:0;
     left:100%;
     top:0;
-    border:46px solid transparent;
+    border:29px solid transparent;
     border-left: 20px solid var(--blue);
 }
 
@@ -81,6 +84,48 @@
   border-radius: 10px;
   font-size: 1.5em;
   color: white;
+}
+
+.message-ui {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+}
+
+#message_container {
+  overflow: auto;
+}
+
+.message-table {
+  border: 10px;
+  width: 90%;
+  padding: 10px;
+  margin: 10px;
+  margin-left: 20px;
+  border-spacing: 15px !important;
+  border-collapse: separate
+}
+
+.message-table-row {
+}
+
+.message-input-line {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 20px;
+  align-self: stretch;
+}
+
+.small-space {
+  width: 20px;
+}
+
+.full-it {
+  max-height: 100vh;
+  height: 100%;
+  width: 100%;
+  max-width: 100vw;
 }
 
 #printDiv {

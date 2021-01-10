@@ -16,41 +16,55 @@
       <div class="row align-items-start">
 
         <div class="col-2 border bg-light g-0">
-
           <div class="contact_container">
             <div id="contact_list"> </div>
             <div class="empty_flex"></div>
             <div class="contact_buttons">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settings">Settings</button>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">Add new user</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputQrContact">Add new user from QR</button>
             </div>
           </div> <!--contact_container -->
         </div>
 
-        <div class="col-10 g-0 message-content">
 
-          <div class="container-fluid px-5">
-
+        <div class="col-10 g-0 message-content full-it">
+          <div class="message-ui">
             <div id=message_container></div> 
-
-            <div class="row ml-10 pt-3 gy-1" >
-              <div class="container-fluid">
-                <div class="row align-items-start">
-                  <div class="col-10">
-                    <input type="text" class="form-control message-ui" id="message_text" placeholder="type message here">
-                  </div>
-              <div class="col-2">
-                <button type="button" class="btn btn-primary message-ui" onclick="send_message()">Send</button>
-              </div>
-                </div>
-              </div>
+            <div class="empty_flex"></div>
+            <div class="message-input-line">
+              <input type="text" class="form-control message-ui" id="message_text" placeholder="type message here">
+              <div class="small-space"></div>
+              <button type="button" class="btn btn-primary message-ui" onclick="send_message()">Send</button>
+              <div class="small-space"></div>
+              <button type="button" class="btn btn-primary message-ui" data-toggle="modal" data-target="#inputImage">Import QR Message From Contact</button>
             </div>
+          </div>
+        </div>
 
-            <button type="button" class="btn btn-primary message-ui" data-toggle="modal" data-target="#inputImage">Scan QR Message From Contact</button>
 
+      </div>
+    </div>
+
+    <!-- Modal Input Contact from QR code-->
+    <div class="modal fade" id="inputQrContact" tabindex="-1" aria-labelledby="inputQrContactModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="inputQrContactModalLabel">Scan In QR Contact</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <video id=vid></video>
+            <p>When you click the Scan button, a video window will open, just hold up your
+            sheet of paper, and position it so the QR code is completly visible in frame.</p>
+            <button onclick="start_contact_scan()">Scan in QR code</button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-    </div>
     </div>
 
 
@@ -64,15 +78,59 @@
           </div>
           <div class="modal-body">
             <video id=vid></video>
+            <p>When you click the Scan button, a video window will open, just hold up your
+            sheet of paper, and position it so the QR code is completly visible in frame.</p>
             <button onclick="start_scan()">Scan in QR code</button>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Modal Welcome-->
+    <div class="modal fade" id="welcome" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="welcomeModalLabel">Welcome</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h1>Welcome to Slow Chat</h1>
+            I don't see any data on your computer yet, So i'm assuming this is your first
+            time here!  What is here? 
+            <h2>What is Slow chat</h2>
+            <p>
+            Slow chat is a basic chat program, but when you go to send a message, instead
+            of sending the message over the internet, it uses the United States Postal Service
+            as the transport of the message.  It does this by creating a printable page with
+            your message encoded on it; when the recipient gets this page in the mail, 
+            they can then scan this page with their webcamera and have the message appear
+            in their chat window.
+            </p>
+            <p>
+            Maybe you are here because someone sent you a message, and now you want to scan
+            that message in to see what it says?  Keep on reading, and I'll tell you what you need to do.
+            </p>
+            <h3>First Time Setup</h3>
+            If this is your first time here, then you need to do a little work before you can
+            scan you first message.  
+            <ol>
+              <li>first you need to configure your user, so when you send a message the
+                recipient knows where it came from and how to respond</li>
+              <li>next, you'll need to setup a contact.  If you have a message from another person, then it's as easy as clicking the "Add Contact from QRcode", If you don't have a message but want to send a message to someone, then selecting "Add new user" will setup a user and allow you to start sending message to them.</li>
+            </ol>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
     <!-- Modal Add New User-->
@@ -112,7 +170,6 @@
 
 
             </div>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -122,11 +179,53 @@
       </div>
     </div>
 
+    <!-- Modal Settings -->
+    <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class=user_input>
+              <label for="fist_name_input" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="settings_first_name_input" placeholder="Bob">
+
+              <label for="last_name_input" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="settings_last_name_input" placeholder="Smith">
+
+              <label for="user_address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="settings_user_address" placeholder="915 Westin Lane">
+
+              <label for="user_city" class="form-label">City</label>
+              <input type="text" class="form-control" id="settings_user_city" placeholder="Walatoba">
+
+              <label for="user_state" class="form-label">State</label>
+              <input type="text" class="form-control" id="settings_user_state" placeholder="California">
+
+              <label for="user_zip" class="form-label">Zipcode</label>
+              <input type="text" class="form-control" id="settings_user_zip" placeholder="99192">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="save_settings" type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- print div -->
     <div id="printDiv">
       <div id="qrcode"></div>
-
       Instructions for importing this message into chat!
+
+      <h3>Contact Info</h3>
+      This message is from:
+      <div id="contact_info"></div>
+      to import this contact into your Slow Chat interface, Scan this QR code:
+      <div id="qrcode_contact"></div>
     </div>
 
     <!-- Scripts -->
