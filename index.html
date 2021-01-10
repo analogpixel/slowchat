@@ -55,7 +55,7 @@
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <video id=vid></video>
+            <video id=vid_contact class=vid></video>
             <p>When you click the Scan button, a video window will open, just hold up your
             sheet of paper, and position it so the QR code is completly visible in frame.</p>
             <button onclick="start_contact_scan()">Scan in QR code</button>
@@ -68,7 +68,7 @@
     </div>
 
 
-    <!-- Modal Input Image-->
+    <!-- Modal Input Message Image-->
     <div class="modal fade" id="inputImage" tabindex="-1" aria-labelledby="inputImageModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -77,7 +77,7 @@
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <video id=vid></video>
+            <video id=vid_message class=vid></video>
             <p>When you click the Scan button, a video window will open, just hold up your
             sheet of paper, and position it so the QR code is completly visible in frame.</p>
             <button onclick="start_scan()">Scan in QR code</button>
@@ -118,9 +118,9 @@
             If this is your first time here, then you need to do a little work before you can
             scan you first message.  
             <ol>
-              <li>first you need to configure your user, so when you send a message the
-                recipient knows where it came from and how to respond</li>
-              <li>next, you'll need to setup a contact.  If you have a message from another person, then it's as easy as clicking the "Add Contact from QRcode", If you don't have a message but want to send a message to someone, then selecting "Add new user" will setup a user and allow you to start sending message to them.</li>
+              <li>First you need to configure your user, so when you send a message the
+                recipient knows where it came from and how to respond. Just click on the Settings button in the lower left, and fill in your information.</li>
+              <li>Next, you'll need to setup a contact.  If you have a message from another person, then it's as easy as clicking the "Add Contact from QRcode", If you don't have a message but want to send a message to someone, then selecting "Add new user" will setup a user and allow you to start sending message to them.</li>
             </ol>
 
           </div>
@@ -218,14 +218,28 @@
 
     <!-- print div -->
     <div id="printDiv">
-      <div id="qrcode"></div>
-      Instructions for importing this message into chat!
+      <h1>Congrats! someone has sent you a message!</h1>
 
+      To view the message go to http://tools.analogpixel.org/slowchat and scan in the
+      qrcode below.
+
+      <h2>To scan in a message</h2>
+      <ol>
+        <li>If you have gotten a message from them before, just click on their name in Slow Chat, and then click the Import QR Messge from Contact button.</li>
+        <li>If this is your first message from this person, then click on the Add new user from QR buton on the lower left, then add the message as stated above.</li>
+      </ol>
+
+      <div id="qrcode"></div>
+        
+      <div class="new-page"></div>
       <h3>Contact Info</h3>
       This message is from:
       <div id="contact_info"></div>
       to import this contact into your Slow Chat interface, Scan this QR code:
       <div id="qrcode_contact"></div>
+      <br><br>
+      <h3>This message was sent to</h3>
+      <div id=send-to></div>
     </div>
 
     <!-- Scripts -->

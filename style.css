@@ -8,7 +8,7 @@ body {
     overflow: hidden;
 }
 
-#vid {
+.vid {
   width: 400px;
   height: 400px;
   max-width: 400px;
@@ -137,6 +137,8 @@ body {
     #printDiv  {
         display: block !important;
    }
+
+   .new-page {page-break-after: always;}
 
     .container-fluid  { display:none; }
 }

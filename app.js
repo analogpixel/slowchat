@@ -5,34 +5,58 @@ var user_contacts = [];
 var current_selected;
 var scan_type = "none"; 
 Lockr.prefix = 'lockr_';
-const qrScanner = new QrScanner(document.getElementById('vid'), result => process_message(result));
+const qrScanner_message = new QrScanner(document.getElementById('vid_message'), result => process_message(result));
+const qrScanner_contact = new QrScanner(document.getElementById('vid_contact'), result => process_message(result));
 
 function process_message(m) {
 
-  console.log("GOT MESSAGE:", m);
+  console.log("GOT MESSAGE:", m, scan_type);
   [mtype, message] = m.split('|');
 
-  if ( mtype == "m" && scan_type == "messaage") {
-    qrScanner.stop();
+  if ( mtype == "m" && scan_type == "message") {
+    qrScanner_message.stop();
     $("#inputImage").modal('toggle');
+
+    if (! (current_selected in user_data)) {
+      user_data[current_selected] = {'messages': []}
+    }
+    user_data[current_selected]['messages'].push("1|" + message);
+    save_data();
+    update_message_pane(current_selected);
     console.log("scanned in message");
   }
 
   if ( mtype == "c" && scan_type == "contact") {
-    qrScanner.stop();
+    qrScanner_contact.stop();
+    console.log("Got contact:", message);
     $("#inputQrContactModal").modal('toggle');
+    var data = message.split(">");
+
+    user = {'first_name': data[0],
+      'last_name':  data[1],
+      'user_address': data[2],
+      'user_city': data[3],
+      'user_state': data[4],
+      'user_zip': data[5]
+    };
+
+    user_contacts.push(user);
+    save_data(); // save the data to disk
+    update_ui(); // update the ui
+    $("#inputQrContact").modal('toggle');
+
     console.log("scanned in contact");
   }
 }
 
 function start_scan() {
-  scanType="message";
-  qrScanner.start();
+  scan_type="message";
+  qrScanner_message.start();
 }
 
 function start_contact_scan() {
   scan_type="contact";
-  qrScanner.start();
+  qrScanner_contact.start();
 }
 
 function load_data() {
@@ -76,7 +100,6 @@ function update_person(u) {
 update the message page with the current_selected user
 */
 function update_message_pane(user) {
-  console.log(user);
 
   html = `<table class="message-table">`;
   if (user in user_data) {
@@ -111,7 +134,6 @@ function send_message() {
 
   if (! (to in user_data)) {
     user_data[to] = { 'messages': [] }
-    console.log(user_data);
   }
 
   user_data[to]['messages'].push(`0|${message}`) ;
@@ -121,7 +143,19 @@ function send_message() {
   print_message("me", to, message);
 }
 
+function get_contact(name) {
+  var ret = undefined;
+
+  user_contacts.forEach( (c) => {
+    if ( name_to_id(c.first_name ) == name) {
+      ret = c;
+    }
+  })  ;
+  return ret;
+}
+
 function print_message(from,to, message) {
+  $("#qrcode").html("");
   new QRCode(document.getElementById("qrcode"), {
     text: "m|" + message,
     width: 600,
@@ -129,17 +163,29 @@ function print_message(from,to, message) {
     correctLevel : QRCode.CorrectLevel.L
   });
 
-  contact = `${user_data['settings']['first_name']}>${user_data['settings']['last_name']}>
-             ${user_data['settings']['user_address']}> 
-             ${user_data['settings']['user_city']}>${user_data['settings']['user_state']}>${user_data['settings']['user_zip']}`
+  if (user_data != undefined && user_data['settings'] != undefined) {
+    contact = `${user_data['settings']['first_name']}>${user_data['settings']['last_name']}>${user_data['settings']['user_address']}>${user_data['settings']['user_city']}>${user_data['settings']['user_state']}>${user_data['settings']['user_zip']}`
 
-  $("#contact_info").html( contact);
-  new QRCode(document.getElementById("qrcode_contact"), {
-    text: "c|" + contact,
-    width: 300,
-    height: 300,
-    correctLevel : QRCode.CorrectLevel.L
-  });
+    $("#contact_info").html( contact);
+
+    $("#qrcode_contact").html("");
+    new QRCode(document.getElementById("qrcode_contact"), {
+      text: "c|" + contact,
+      width: 300,
+      height: 300,
+      correctLevel : QRCode.CorrectLevel.L
+    });
+  } else {
+    $("#contact_info").html("<h2>Please go into settings and setup your contact info so the remote person is able to scan in your address for a return message</h2>");
+  }
+
+
+  var contact_data = get_contact(to);
+  send_to = `${contact_data['first_name']} ${contact_data['last_name']}<br>
+             ${contact_data['user_address']} <br>
+             ${contact_data['user_city']} ${contact_data['user_state']} , ${contact_data['user_zip']}<br>`
+
+  $("#send-to").html(send_to);
 
   window.print();
 }
@@ -174,7 +220,6 @@ document.getElementById("save_user_data").addEventListener("click", function() {
     'user_zip': $("#user_zip").val()
   };
 
-  console.log("write user:", user);
 
   user_contacts.push(user);
   save_data(); // save the data to disk
