@@ -101,15 +101,18 @@ update the message page with the current_selected user
 */
 function update_message_pane(user) {
 
+
+  cdata = get_contact(user) ;
+
   html = `<table class="message-table">`;
   if (user in user_data) {
     user_data[user]['messages'].forEach( (m) => {
       [u,mes]  = m.split("|");
-      if (u == '0') { u = "You"; } else { u=user.split('_')[1]; }
+      if (u == '0') { u = "You"; } else { u=cdata.first_name; }
       // html += `<div class="row ml-10 pt-3 gy-5" >
       html += `<tr class="message-table-row">
-          <td><div class="message-bubble" p-3>${mes}</div></td>
-          <td><div class="message-sender text-center">${u}</td>
+          <td class=s1><div class="message-bubble" p-3>${mes}</div></td>
+          <td class=s2><div class="message-sender text-center">${u}</td>
           </tr>`
     });
 
@@ -124,7 +127,7 @@ add a user to the contact list
 */
 function add_user_ui(u) {
   //a = `<div id="${name_to_id(u.first_name)}" onClick="update_person(this)" class="person"><div class="person-name">${u.first_name}</div><div class="person-date">${u.last}</div></div>`
-  a = `<div id="${name_to_id(u.first_name)}" onClick="update_person(this)" class="person"><div class="person-name">${u.first_name}</div></div>`
+  a = `<div id="${name_to_id(u.first_name + u.last_name)}" onClick="update_person(this)" class="person"><div class="person-name">${u.first_name}</div><div class=person-lastname>${u.last_name}</div></div>`
   $("#contact_list").append(a);
 }
 
@@ -147,7 +150,7 @@ function get_contact(name) {
   var ret = undefined;
 
   user_contacts.forEach( (c) => {
-    if ( name_to_id(c.first_name ) == name) {
+    if ( name_to_id(c.first_name + c.last_name ) == name) {
       ret = c;
     }
   })  ;

@@ -61,7 +61,7 @@ body {
     width:0;
     left:100%;
     top:0;
-    border:29px solid transparent;
+    border:40px solid transparent;
     border-left: 20px solid var(--blue);
 }
 
@@ -72,6 +72,14 @@ body {
   padding: 10px;
   font-family: 'Shadows Into Light', cursive;
   font-size: 1.5em;
+}
+
+.s1 {
+  width: 90%;
+}
+
+.s2 {
+  width: 10%;
 }
 
 .message-content {
@@ -107,6 +115,7 @@ body {
 }
 
 .message-table-row {
+  width: 100%;
 }
 
 .message-input-line {
